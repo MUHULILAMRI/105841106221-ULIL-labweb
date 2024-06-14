@@ -4,40 +4,32 @@ import { setStatusBarBackgroundColor } from 'expo-status-bar'
 
 const App = () => {
   return (
-    <View style = {{
-      flex:1,
+    <View style={{
+      flex: 1, 
     }}>
-    <View style={{
-      flex: 1,
-      flexDirection: 'row',
-     }}>
       <View style={{
-        flex: 1,
-        backgroundColor: 'blue',
+        width: 100, 
+        height: 100,
+        backgroundColor: 'red'
       }}>
-    </View>
-    <View style={{
-        flex: 1,
-        backgroundColor: 'orange',
-      }}>
-    </View>
-    </View>
-    <View style={{
-        flex: 1,
-        backgroundColor: 'yellow',
-      }}>
-    </View>
+      </View>
+        <View style={{
+          flex: 1,
+          justifyContent: 'flex-end',
+          alignItems: 'flex-end',
+        }}>
+          <View style={{
+            width: 100,
+            height: 100,
+            backgroundColor: 'blue'
+          }}>
+          </View>
+        </View>
 
-    <View style={{
-        flex: 1,
-        backgroundColor: 'green',
-      }}>
-    </View>
-
-    </View>
-
+      </View>
     
   )
+  
 }
-
+   
 export default App
