@@ -1,58 +1,44 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { setStatusBarBackgroundColor } from 'expo-status-bar'
+import React from 'eact';
+import { View, Text } from 'eact-native';
+
+const styles = {
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: 'ed',
+    width: 250,
+    height: 100,
+    borderRadius: 10,
+    justifyContent: 'center',
+    marginBottom: 10,
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: 'white',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+};
+
+const ButtonCustom = ({ text, color }) => {
+  return (
+    <View style={[styles.button, { backgroundColor: color }]}>
+      <Text style={styles.buttonText}>{text}</Text>
+    </View>
+  );
+};
 
 const App = () => {
   return (
-    <View style={{
-      flex: 1,
-      flexDirection: 'row'
-      
-    }}>
-      <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        marginLeft: 70,
-      }}>
-        <View style={{
-          width: 100,
-          height: 50,
-          backgroundColor: 'red',
-          borderRadius:10,
-          justifyContent: 'center'
-        }}>
-          <Text style={{
-            fontsize:20,
-            color: 'white',
-            textAlign: 'center',
-            fontWeight: 'bold',
-          }}>LOGIN</Text>
-        </View>
-      </View>
-      <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        marginRight: 70,
-      }}>
-        <View style={{
-          width: 100,
-          height: 50,
-          backgroundColor: 'blue',
-          borderRadius: 10,
-          justifyContent: 'center'
-        }}>
-          <Text style={{
-            fontzise: 20,
-            color: 'white',
-            textAlign: 'center',
-            fontWeight: 'bold',
-          }}>SingUp</Text>
-        </View>
-      </View>
+    <View style={styles.container}>
+      <ButtonCustom text="Login" color="red" />
+      <ButtonCustom text="Register" color="blue" />
+      <ButtonCustom text="Register" color="green" />
     </View>
-  )
-}
-   
-export default App
+  );
+};
+
+export default App;
