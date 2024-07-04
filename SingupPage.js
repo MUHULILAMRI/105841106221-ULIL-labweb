@@ -44,7 +44,7 @@ const TextInputCustom = ({ placeholder, typekeyboard }) => {
     )
 }
 
-const App = () => {
+const App = ({navigation}) => {
     const[dapatFont]=useFonts({
         'MetroBold':require('./assets/fonts/Metropolis-Bold.otf'),
         'MetroMedium':require('./assets/fonts/Metropolis-Medium.otf'),
@@ -58,7 +58,7 @@ const App = () => {
                     <TextInputCustom placeholder="Email" typekeyboard="email-address" />
                     <TextInputCustom placeholder="Password" typekeyboard="default" />
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 10 }}>
-                        <Text style={{ fontSize: 16, textAlign:'center',fontFamily:'MetroMedium',marginLeft:130 }}>Already have an account?</Text>
+                        <Text style={styles.Logintext} onPress={() => navigation.navigate("Login")}>Already have an account?</Text>
                     </View>
                     <ButtonCustom text="SIGN UP" color="red" />
                 </View>
@@ -77,7 +77,7 @@ const App = () => {
     )
 }
 
-export default App;
+
 
 const styles = StyleSheet.create({
     container: {
@@ -116,4 +116,14 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
     },
+
+    Logintext: {
+        fontSize: 16,
+        textAlign: 'flex-end',
+        marginLeft: '130',
+        fontFamily: 'MetroMedium',
+        // color: 'red',
+    }
 });
+
+export default App;

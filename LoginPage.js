@@ -45,7 +45,7 @@ const TextInputCustom = ({ placeholder, typekeyboard }) => {
     )
 }
 
-const App = () => {
+const App = ({navigation}) => {
   const[dapatFont]=useFonts({
     'MetroBold':require('./assets/fonts/Metropolis-Bold.otf'),
     'MetroMedium':require('./assets/fonts/Metropolis-Medium.otf'),
@@ -62,7 +62,7 @@ if(!dapatFont){
                     <TextInputCustom placeholder="Email" typekeyboard="email-address" />
                     <TextInputCustom placeholder="Password" typekeyboard="default" />
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 10 }}>
-                        <Text style={{ fontSize: 16, textAlign:'flex-end',marginLeft:150,fontFamily:'MetroMedium' }}>Forgot your password?</Text>
+                        <Text style={styles.ForgetPasswordtext} onPress={() => navigation.navigate("ForgetPassword")}>Forgot your password?</Text>
                     </View>
                     <ButtonCustom text="LOGIN" color="red" />
                 </View>
@@ -119,5 +119,12 @@ const styles = StyleSheet.create({
     logo: {
         width: 50,
         height: 50,
+    },
+    ForgetPasswordtext: {
+        fontSize: 11,
+        textAlign:'flex-end',
+        marginLeft: '150',
+        fontFamily:'MetroMedium',
+        
     },
 });
