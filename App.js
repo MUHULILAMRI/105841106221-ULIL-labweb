@@ -1,20 +1,55 @@
-// In App.js in a new project
-
 import * as React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, Image, TouchableOpacity, TouchableOpacityBase } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SingupPage from './SingupPage';
 import LoginPage from './LoginPage';
-import ForgetPasswordPage from './ForgetPasswordPage';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HomeAktif from './assets/icon/home-activated.png';
+import HomeInaktif from './assets/icon/home-inactive.png';
+import shopaktif from './assets/icon/shop-activated.png';
+import shopinaktif from './assets/icon/shop-inactive.png';
 
-function HomeScreen({navigation}) {
+
+const Tab = createBottomTabNavigator();
+function MyTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? HomeAktif : HomeInaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="shop"
+        component={LoginPage}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? shopaktif : shopaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
+function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
-      {/* <Button title="kehalaman LoginPage" onPress={() => navigation.navigate('LoginPage')}/> */}
-      <Button title="SingupPage" onPress={() => navigation.navigate('Sing Up')}/>
-      {/* <Button title="ForgetPasswordPage" onPress={() => navigation.navigate('ForgetPasswordPage')}/> */}
+      <Button
+        title="Go to Login"
+        onPress={() => navigation.navigate('Login')}
+      />
     </View>
   );
 }
@@ -25,11 +60,8 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
-        <Stack.Screen name="Sing Up" component={SingupPage}options={{headerShown : false}} />
-        <Stack.Screen name="Login" component={LoginPage} options={{headerShown : false}} />
-        <Stack.Screen name="ForgetPassword" component={ForgetPasswordPage}options={{headerShown : false}} />
-        
+        <Stack.Screen name="Home" component={MyTabs} />
+        <Stack.Screen name="Login" component={LoginPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
