@@ -3,12 +3,21 @@ import { View, Text, Button, Image, TouchableOpacity, TouchableOpacityBase } fro
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginPage from './LoginPage';
+import profilPage from './profilPage';
+import shopPage from './shopPage';
+import FavoritePage from './FavoritePage';
+import BagPage from './BagPage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeAktif from './assets/icon/home-activated.png';
 import HomeInaktif from './assets/icon/home-inactive.png';
-import shopaktif from './assets/icon/shop-activated.png';
-import shopinaktif from './assets/icon/shop-inactive.png';
-
+import shopAktif from './assets/icon/shop-activated.png';
+import shopInaktif from './assets/icon/shop-inactive.png';
+import profilAktif from './assets/icon/profil-activated.png';
+import profilInaktif from './assets/icon/profil-inactive.png';
+import favoritesAktif from './assets/icon/favorites-activated.png';
+import favoritesInaktif from './assets/icon/favorites-inactive.png';
+import bagAktif from './assets/icon/bag-activated.png';
+import bagInaktif from './assets/icon/bag-inactive.png';
 
 const Tab = createBottomTabNavigator();
 function MyTabs() {
@@ -27,12 +36,48 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="shop"
-        component={LoginPage}
+        name="Shop"
+        component={shopPage}
         options={{
           headerShown: false, tabBarIcon: ({ focused }) => (
             <Image
-              source={focused ? shopaktif : shopaktif}
+              source={focused ? shopAktif : shopInaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Favorite"
+        component={FavoritePage}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? favoritesAktif : favoritesInaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Bag"
+        component={BagPage}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? bagAktif : bagInaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profil"
+        component={profilPage}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? profilAktif : profilInaktif}
               style={{ width: 40, height: 40 }}
             />
           ),
