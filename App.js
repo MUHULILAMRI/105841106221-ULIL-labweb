@@ -1,128 +1,107 @@
-import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import ImageSlider from 'react-native-image-slider';
 
-const LoginSimak = () => {
-  const [data, setData] = useState({
-    nim: '',
-    password: ''
-  });
-  const [userData, setUserData] = useState(null);
-  const [error, setError] = useState('');
-
-  const onSubmit = () => {
-    axios.post('https://api.beasiswa.unismuh.ac.id/api/login', {
-      username: data.nim,
-      password: data.password
-    })
-      .then(response => {
-        if (response.status === 200) {
-          setUserData(response.data.data);
-          setError('');
-        }
-      })
-      .catch(error => {
-        console.log(error);
-        setError('Ada kesalahan. Silahkan cek kembali nim dan password anda.');
-        setUserData(null);
-      });
-  }
+const App = () => {
+  const images = [
+    require('./assets/images/casual-dress.png'),
+    require('./assets/images/evening-dress.png'),
+    require('./assets/images/fashionsale1.png'),
+    require('./assets/images/phooto3.png'),
+    require('./assets/images/photo1.png'),
+    require('./assets/images/photo2.png'),
+    require('./assets/images/sport-dress.png'),
+  ];
 
   return (
-    <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          onChangeText={(value) => setData({ ...data, nim: value })}
-          placeholder="Nim"
-          placeholderTextColor="#aaa"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={(value) => setData({ ...data, password: value })}
-          placeholder="Password"
-          placeholderTextColor="#aaa"
-          secureTextEntry
-        />
-        <Button title="Login" onPress={onSubmit} />
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+    <ScrollView style={styles.container}>
+      <View style={styles.sliderContainer}>
+        <ImageSlider images={images} autoPlayWithInterval={3000} loop />
       </View>
-      {userData && (
-        <View style={styles.userDataContainer}>
-          <Text style={styles.userDataText}>ID: {userData.id}</Text>
-          <Text style={styles.userDataText}>Username: {userData.username}</Text>
-          <Text style={styles.userDataText}>Name: {userData.nama}</Text>
-          <Text style={styles.userDataText}>Role: {userData.role}</Text>
-          <Image
-            style={styles.userImage}
-            source={{ uri: 'https://simakad.unismuh.ac.id/upload/mahasiswa/${userData.username}.jpg' }}
-          />
-        </View>
-      )}
-    </View>
+      <View style={styles.saleBanner}>
+        <Text style={styles.saleText}>Fashion sale</Text>
+        <TouchableOpacity style={styles.checkButton}>
+          <Text style={styles.checkButtonText}>Check</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.newSection}>
+        <Text style={styles.newTitle}>New</Text>
+        <Text style={styles.newSubtitle}>You've never seen it before!</Text>
+        <ImageSlider
+          images={images}
+          customSlide={({ index, item, style, width }) => (
+            <View key={index} style={[style, styles.customSlide]}>
+              <Image source={item} style={styles.newItemImage} />
+              <Text style={styles.newItemText}>New Item {index + 1}</Text>
+            </View>
+          )}
+          style={styles.newItemsSlider}
+          autoPlayWithInterval={3000}
+          loop
+        />
+      </View>
+    </ScrollView>
   );
-}
-
-export default LoginSimak;
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    padding: 20,
-  },
-  inputContainer: {
-    width: '100%',
-    maxWidth: 400,
-    padding: 20,
     backgroundColor: '#fff',
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-    marginBottom: 20,
   },
-  input: {
-    height: 50,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-    fontSize: 16,
-    color: '#333',
+  sliderContainer: {
+    height: 300,
   },
-  errorText: {
-    color: 'red',
+  saleBanner: {
+    alignItems: 'center',
+    marginTop: -50,
+  },
+  saleText: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  checkButton: {
     marginTop: 10,
+    backgroundColor: '#ff0000',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  checkButtonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  newSection: {
+    padding: 20,
+  },
+  newTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  newSubtitle: {
+    fontSize: 16,
+    color: '#888',
+    marginVertical: 5,
+  },
+  newItemsSlider: {
+    height: 200,
+  },
+  customSlide: {
+    alignItems: 'center',
+    width: 150,
+    marginRight: 10,
+  },
+  newItemImage: {
+    width: 150,
+    height: 150,
+    resizeMode: 'cover',
+  },
+  newItemText: {
+    marginTop: 10,
+    fontSize: 14,
     textAlign: 'center',
   },
-  userDataContainer: {
-    width: '100%',
-    maxWidth: 400,
-    padding: 20,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-    alignItems: 'center',
-  },
-  userDataText: {
-    fontSize: 16,
-    color: '#333',
-    marginBottom: 5,
-  },
-  userImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginTop: 10,
-  },
 });
+
+export default App;
