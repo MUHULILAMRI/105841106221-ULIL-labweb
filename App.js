@@ -1,107 +1,116 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import ImageSlider from 'react-native-image-slider';
+import * as React from 'react';
+import { View, Text, Button, Image, TouchableOpacity, TouchableOpacityBase } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginPage from './LoginPage';
+import HomePage from './Home';
+import profilPage from './profilPage';
+import shopPage from './shopPage';
+import FavoritePage from './FavoritePage';
+import BagPage from './BagPage';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HomeAktif from './assets/icon/home-activated.png';
+import HomeInaktif from './assets/icon/home-inactive.png';
+import shopAktif from './assets/icon/shop-activated.png';
+import shopInaktif from './assets/icon/shop-inactive.png';
+import profilAktif from './assets/icon/profil-activated.png';
+import profilInaktif from './assets/icon/profil-inactive.png';
+import favoritesAktif from './assets/icon/favorites-activated.png';
+import favoritesInaktif from './assets/icon/favorites-inactive.png';
+import bagAktif from './assets/icon/bag-activated.png';
+import bagInaktif from './assets/icon/bag-inactive.png';
 
-const App = () => {
-  const images = [
-    require('./assets/images/casual-dress.png'),
-    require('./assets/images/evening-dress.png'),
-    require('./assets/images/fashionsale1.png'),
-    require('./assets/images/phooto3.png'),
-    require('./assets/images/photo1.png'),
-    require('./assets/images/photo2.png'),
-    require('./assets/images/sport-dress.png'),
-  ];
-
+const Tab = createBottomTabNavigator();
+function MyTabs() {
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.sliderContainer}>
-        <ImageSlider images={images} autoPlayWithInterval={3000} loop />
-      </View>
-      <View style={styles.saleBanner}>
-        <Text style={styles.saleText}>Fashion sale</Text>
-        <TouchableOpacity style={styles.checkButton}>
-          <Text style={styles.checkButtonText}>Check</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.newSection}>
-        <Text style={styles.newTitle}>New</Text>
-        <Text style={styles.newSubtitle}>You've never seen it before!</Text>
-        <ImageSlider
-          images={images}
-          customSlide={({ index, item, style, width }) => (
-            <View key={index} style={[style, styles.customSlide]}>
-              <Image source={item} style={styles.newItemImage} />
-              <Text style={styles.newItemText}>New Item {index + 1}</Text>
-            </View>
-          )}
-          style={styles.newItemsSlider}
-          autoPlayWithInterval={3000}
-          loop
-        />
-      </View>
-    </ScrollView>
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={HomePage}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? HomeAktif : HomeInaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Shop"
+        component={shopPage}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? shopAktif : shopInaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Favorite"
+        component={FavoritePage}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? favoritesAktif : favoritesInaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Bag"
+        component={BagPage}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? bagAktif : bagInaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profil"
+        component={profilPage}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? profilAktif : profilInaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
-};
+}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  sliderContainer: {
-    height: 300,
-  },
-  saleBanner: {
-    alignItems: 'center',
-    marginTop: -50,
-  },
-  saleText: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  checkButton: {
-    marginTop: 10,
-    backgroundColor: '#ff0000',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-  },
-  checkButtonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
-  newSection: {
-    padding: 20,
-  },
-  newTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  newSubtitle: {
-    fontSize: 16,
-    color: '#888',
-    marginVertical: 5,
-  },
-  newItemsSlider: {
-    height: 200,
-  },
-  customSlide: {
-    alignItems: 'center',
-    width: 150,
-    marginRight: 10,
-  },
-  newItemImage: {
-    width: 150,
-    height: 150,
-    resizeMode: 'cover',
-  },
-  newItemText: {
-    marginTop: 10,
-    fontSize: 14,
-    textAlign: 'center',
-  },
-});
+function HomeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+      <Button
+        title="Go to Login"
+        onPress={() => navigation.navigate('Login')}
+      />
+    </View>
+  );
+}
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={MyTabs} options={{headerShown: false}}/>
+        <Stack.Screen name="Login" component={LoginPage} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
 export default App;

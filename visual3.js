@@ -7,7 +7,7 @@ export default function Visual2() {
             <View style={styles.imageContainer}>
                 <Image
                     style={styles.image}
-                    source={require('./assets/visual2.png')}
+                    source={require('./assets/bgr.jpg')}
                 />
 
                 {/* Overlay yang menggelapkan area di luar kotak */}
@@ -16,7 +16,7 @@ export default function Visual2() {
                     <View style={styles.cropContainer}>
                         <Image
                             style={styles.image}
-                            source={require('./assets/visual2.png')}
+                            source={require('./assets/bgr.jpg')}
                         />
                     </View>
                 </View>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Overlay gelap
     },
     cropContainer: {
         position: 'absolute',
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         borderColor: '#ffffff',
         borderWidth: 4,
         borderRadius: 20,
-        overflow: 'hidden', 
+        overflow: 'hidden', // Pastikan hanya area dalam kotak yang terlihat
     },
     cameraButton: {
         position: 'absolute',
